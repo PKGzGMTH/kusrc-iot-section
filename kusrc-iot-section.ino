@@ -7,18 +7,16 @@ byte new_card[cardBufferSize];
 byte old_card[cardBufferSize];
 
 void setup() {
+  pinMode(D8, INPUT);
+  pinMode(D0, OUTPUT);
+  digitalWrite(D0, LOW);
+
   startup();
   resetId(my_card);
   resetId(new_card);
   resetId(old_card);
 
-  readcard(new_card);
-  copyId(my_card, new_card);
-
-  pinMode(D8, INPUT);
-  pinMode(D0, OUTPUT);
-
-  digitalWrite(D0, HIGH);
+  readcard(my_card);
 }
 
 void loop() {
@@ -27,6 +25,7 @@ void loop() {
   if (digitalRead(D8) == HIGH) {
     resetId(new_card);
     printf("reset id!\n");
+    delay(100);
   }
 
   if (sameId(old_card, new_card)) return;
@@ -39,6 +38,4 @@ void loop() {
     printf("Wrong card!\n");
     digitalWrite(D0, LOW);
   }
-
-  delay(100);
 }
