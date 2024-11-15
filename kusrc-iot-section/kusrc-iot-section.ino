@@ -24,6 +24,8 @@ void loop() {
 
   if (digitalRead(D8) == HIGH) {
     resetId(new_card);
+    resetId(old_card);
+    digitalWrite(D0, LOW);
     printf("reset id!\n");
     delay(100);
   }
